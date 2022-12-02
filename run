@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+require_once 'vendor/autoload.php';
+
+$day = $argv[1] ?? null;
+
+if (is_null($day)) {
+    echo "usage: php run <day> (01, 02...)".PHP_EOL;
+    exit(1);
+}
+
+$class = "\Mattiabasone\AdventOfCode2022\Day{$day}\Day{$day}";
+
+if (!class_exists($class)) {
+    echo "Solution for day {$day} not found!".PHP_EOL;
+    exit(1);
+}
+
+echo (new $class)->run();
+
+exit(0);

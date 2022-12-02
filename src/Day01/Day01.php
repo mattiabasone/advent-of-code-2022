@@ -2,24 +2,11 @@
 
 namespace Mattiabasone\AdventOfCode2022\Day01;
 
-use Mattiabasone\AdventOfCode2022\DayInterface;
+use Mattiabasone\AdventOfCode2022\Run;
 
-final class Day01 implements DayInterface
+final class Day01
 {
-    public function run(): string
-    {
-        $data = self::prepareData(file_get_contents(__DIR__.'/data.txt'));
-        $partOne = self::partOne($data);
-        $partTwo = self::partTwo($data);
-
-        return
-            <<<RESULT
-            Part one: $partOne
-            Part two: $partTwo
-            
-            RESULT;
-
-    }
+    use Run;
 
     public static function partOne(array $data): int
     {

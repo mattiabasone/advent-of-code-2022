@@ -3,10 +3,9 @@
 namespace Mattiabasone\AdventOfCode2022\Test;
 
 use Mattiabasone\AdventOfCode2022\Day01\Day01;
-use Mattiabasone\AdventOfCode2022\Day01\PartOne;
 use PHPUnit\Framework\TestCase;
 
-class PartOneTest extends TestCase
+class Day01Test extends TestCase
 {
     private const INPUT =
         <<<INPUT
