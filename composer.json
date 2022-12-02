@@ -5,7 +5,7 @@
     "autoload": {
         "psr-4": {
             "Mattiabasone\\AdventOfCode2022\\": "src/",
-            "Mattiabasone\\AdventOfCode2022\\Test": "tests/"
+            "Mattiabasone\\AdventOfCode2022\\Test\\": "tests/"
         }
     },
     "authors": [
@@ -14,6 +14,9 @@
             "email": "mattia.basone@gmail.com"
         }
     ],
+    "config": {
+        "bin-dir": "bin"
+    },
     "require": {
         "php": "^8.0"
     },
