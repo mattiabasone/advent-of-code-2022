@@ -1,7 +1,7 @@
 # Advent of Code 2022
 
 - `composer install`
-- `./run <day>` (day: 01, 02...) 
+- `./bin/run <day>` (day: 01, 02...) 
 - run `bin/phpunit` for tests
 
 
