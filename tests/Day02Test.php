@@ -14,13 +14,13 @@ class Day02Test extends TestCase
         C Z
         INPUT;
 
-    public function testDay01PartOne(): void
+    public function testDay02PartOne(): void
     {
         $data = Day02::prepareData(self::INPUT);
         self::assertSame(15, Day02::partOne($data));
     }
 
-    public function testDay01PartTwo(): void
+    public function testDay02PartTwo(): void
     {
         $data = Day02::prepareData(self::INPUT);
         self::assertSame(12, Day02::partTwo($data));
