@@ -27,13 +27,13 @@ class Day03Test extends TestCase
         self::assertCount(24, $firstEntry);
     }
 
-    public function testDay01PartOne(): void
+    public function testDay03PartOne(): void
     {
         $data = Day03::prepareData(self::INPUT);
         self::assertSame(157, Day03::partOne($data));
     }
 
-    public function testDay01PartTwo(): void
+    public function testDay03PartTwo(): void
     {
         $data = Day03::prepareData(self::INPUT);
         self::assertSame(70, Day03::partTwo($data));
