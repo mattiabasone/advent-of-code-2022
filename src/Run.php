@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mattiabasone\AdventOfCode2022;
 
 trait Run
@@ -23,7 +25,7 @@ trait Run
 
     public static function input(): string
     {
-        $classNamespace = explode("\\", get_class());
+        $classNamespace = explode("\\", __CLASS__);
         $inputName = strtolower(end($classNamespace));
         return file_get_contents(__DIR__."/../inputs/{$inputName}.txt");
     }
