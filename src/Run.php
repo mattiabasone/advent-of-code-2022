@@ -6,8 +6,6 @@ namespace Mattiabasone\AdventOfCode2022;
 
 trait Run
 {
-    protected array $timers = [];
-
     abstract public static function prepareData(string $input): array;
     abstract public static function partOne(array $data);
     abstract public static function partTwo(array $data);
@@ -16,19 +14,17 @@ trait Run
     {
         $rawData = static::input();
 
-        $this->startTimer('partOne');
+        $partOneTimer = (new Timer())->start();
         $partOne = static::partOne(
             static::prepareData($rawData)
         );
-        $this->stopTimer('partOne');
-        $partOneElapsedSeconds = $this->elapsedSeconds('partOne');
+        $partOneElapsedSeconds = $partOneTimer->stop()->elapsedSeconds();
 
-        $this->startTimer('partTwo');
+        $partTwoTimer = (new Timer())->start();
         $partTwo = static::partTwo(
             static::prepareData($rawData)
         );
-        $this->stopTimer('partTwo');
-        $partTwoElapsedSeconds = $this->elapsedSeconds('partTwo');
+        $partTwoElapsedSeconds = $partTwoTimer->stop()->elapsedSeconds();
 
         return
             <<<RESULT
@@ -44,23 +40,5 @@ trait Run
         $classNamespace = explode("\\", __CLASS__);
         $inputName = strtolower(end($classNamespace));
         return file_get_contents(__DIR__."/../inputs/{$inputName}.txt");
-    }
-
-    protected function startTimer(string $timerName): void
-    {
-        $this->timers[$timerName] = [
-            'start' => hrtime(true),
-            'end' => -1
-        ];
-    }
-
-    protected function stopTimer(string $timerName): void
-    {
-        $this->timers[$timerName]['end'] = hrtime(true);
-    }
-
-    protected function elapsedSeconds(string $timerName): string
-    {
-        return number_format(($this->timers[$timerName]['end'] - $this->timers[$timerName]['start']) / 1e+9, 8);
     }
 }
