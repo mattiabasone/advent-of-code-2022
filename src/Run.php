@@ -6,18 +6,34 @@ namespace Mattiabasone\AdventOfCode2022;
 
 trait Run
 {
+    protected array $timers = [];
+
+    abstract public static function prepareData(string $input): array;
+    abstract public static function partOne(array $data);
+    abstract public static function partTwo(array $data);
+
     public function run(): string
     {
-        $data = static::prepareData(
-            static::input()
+        $rawData = static::input();
+
+        $this->startTimer('partOne');
+        $partOne = static::partOne(
+            static::prepareData($rawData)
         );
-        $partOne = static::partOne($data);
-        $partTwo = static::partTwo($data);
+        $this->stopTimer('partOne');
+        $partOneElapsedSeconds = $this->elapsedSeconds('partOne');
+
+        $this->startTimer('partTwo');
+        $partTwo = static::partTwo(
+            static::prepareData($rawData)
+        );
+        $this->stopTimer('partTwo');
+        $partTwoElapsedSeconds = $this->elapsedSeconds('partTwo');
 
         return
             <<<RESULT
-            Part one: $partOne
-            Part two: $partTwo
+            Part one: $partOne ($partOneElapsedSeconds seconds)
+            Part two: $partTwo ($partTwoElapsedSeconds seconds)
             
             RESULT;
 
@@ -30,7 +46,21 @@ trait Run
         return file_get_contents(__DIR__."/../inputs/{$inputName}.txt");
     }
 
-    abstract public static function prepareData(string $input): array;
-    abstract public static function partOne(array $data);
-    abstract public static function partTwo(array $data);
+    protected function startTimer(string $timerName): void
+    {
+        $this->timers[$timerName] = [
+            'start' => hrtime(true),
+            'end' => -1
+        ];
+    }
+
+    protected function stopTimer(string $timerName): void
+    {
+        $this->timers[$timerName]['end'] = hrtime(true);
+    }
+
+    protected function elapsedSeconds(string $timerName): string
+    {
+        return number_format(($this->timers[$timerName]['end'] - $this->timers[$timerName]['start']) / 1e+9, 8);
+    }
 }
