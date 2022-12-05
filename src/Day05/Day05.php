@@ -10,22 +10,24 @@ final class Day05
 {
     use Run;
 
+    private const MOVES_REGEX = "/move\s(?P<amount>[\d]+)\sfrom\s(?P<from>[\d]+)\sto\s(?P<to>[\d+])/";
+
     public static function partOne(array $data): string
     {
         [$stacks, $moves] = $data;
 
         foreach ($moves as $move) {
-            $fromCrate = $stacks[$move->getFrom()];
+            [$amount, $from, $to] = $move;
 
-            $fromCrate->moveAmountToStack(
-                $move->getAmount(),
-                $stacks[$move->getTo()]
+            $stacks[$from]->moveAmountToStack(
+                $amount,
+                $stacks[$to]
             );
         }
 
         return array_reduce(
             $stacks,
-            fn(string $accumulator, Stack $stack): string => $accumulator.$stack->getTopCrate(),
+            fn (string $accumulator, Stack $stack): string => $accumulator.$stack->getTopCrate(),
             ""
         );
     }
@@ -35,17 +37,17 @@ final class Day05
         [$stacks, $moves] = $data;
 
         foreach ($moves as $move) {
-            $fromCrate = $stacks[$move->getFrom()];
+            [$amount, $from, $to] = $move;
 
-            $fromCrate->moveOrderedAmountToStack(
-                $move->getAmount(),
-                $stacks[$move->getTo()]
+            $stacks[$from]->moveOrderedAmountToStack(
+                $amount,
+                $stacks[$to]
             );
         }
 
         return array_reduce(
             $stacks,
-            fn(string $accumulator, Stack $stack): string => $accumulator.$stack->getTopCrate(),
+            fn (string $accumulator, Stack $stack): string => $accumulator.$stack->getTopCrate(),
             ""
         );
     }
@@ -64,10 +66,10 @@ final class Day05
     {
         $rawCratesArray = explode("\n", $rawCrates);
 
-        $crates = array_map(function (string $crateRow) {
+        $crates = array_map(static function (string $crateRow) {
             $crateRowArray = str_split($crateRow, 4);
             return array_map(
-                fn(string $entry) => trim($entry, " []"),
+                fn (string $entry) => trim($entry, " []"),
                 $crateRowArray
             );
         }, $rawCratesArray);
@@ -90,10 +92,9 @@ final class Day05
         $rawMovesArray = explode("\n", $rawMoves);
         return array_map(
             function (string $move) {
-                $matches = [];
-                preg_match("/move\s(?P<amount>[\d]+)\sfrom\s(?P<from>[\d]+)\sto\s(?P<to>[\d+])/", $move, $matches);
-
-                return new Move((int) $matches['amount'], (int) $matches['from'], (int) $matches['to']);
+                 $matches = [];
+                 preg_match(self::MOVES_REGEX, $move, $matches);
+                 return [(int) $matches['amount'], (int) $matches['from'], (int) $matches['to']];
             },
             $rawMovesArray
         );

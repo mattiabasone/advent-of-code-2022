@@ -26,13 +26,13 @@ class Day04Test extends TestCase
         self::assertInstanceOf(ElfAssignment::class, $data[0]->getFirst());
     }
 
-    public function testDay03PartOne(): void
+    public function testDay04PartOne(): void
     {
         $data = Day04::prepareData(self::INPUT);
         self::assertSame(2, Day04::partOne($data));
     }
 
-    public function testDay03PartTwo(): void
+    public function testDay04PartTwo(): void
     {
         $data = Day04::prepareData(self::INPUT);
         self::assertSame(4, Day04::partTwo($data));

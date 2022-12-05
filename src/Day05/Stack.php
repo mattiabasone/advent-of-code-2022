@@ -17,11 +17,9 @@ final class Stack
 
     public function moveAmountToStack(int $amount, self $destinationStack): void
     {
-        for ($i = 0; $i < $amount; $i++) {
-            $destinationStack->putCrate(
-                $this->takeCrate()
-            );
-        }
+        $destinationStack->putCrates(
+            array_reverse($this->takeCrates($amount))
+        );
     }
 
     public function moveOrderedAmountToStack(int $amount, self $destinationStack): void
@@ -29,11 +27,6 @@ final class Stack
         $destinationStack->putCrates(
             $this->takeCrates($amount)
         );
-    }
-
-    public function takeCrate(): string
-    {
-        return array_shift($this->crates);
     }
 
     public function takeCrates(int $amount): array
@@ -46,11 +39,6 @@ final class Stack
         return $crates;
     }
 
-    public function putCrate(string $crate): void
-    {
-        array_unshift($this->crates, $crate);
-    }
-
     public function putCrates(array $crates): void
     {
         array_unshift($this->crates, ...$crates);
@@ -58,6 +46,6 @@ final class Stack
 
     public function getTopCrate(): string
     {
-        return $this->crates[0] ?? "";
+        return $this->crates[0];
     }
 }
