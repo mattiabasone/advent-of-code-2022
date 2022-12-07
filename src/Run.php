@@ -6,10 +6,6 @@ namespace Mattiabasone\AdventOfCode2022;
 
 trait Run
 {
-    abstract public static function prepareData(string $input): array;
-    abstract public static function partOne(array $data);
-    abstract public static function partTwo(array $data);
-
     public function run(): string
     {
         $rawData = static::input();
